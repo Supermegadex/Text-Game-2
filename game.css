@@ -1,0 +1,41 @@
+﻿#story{
+ position: fixed;
+ width: 50vw;
+ left: 25vw;
+ height: 75vh;
+    overflow: scroll;
+}
+#player{
+ position: fixed;
+ float: right;
+ right: 2px;
+ height: 100vh;
+ width: 25vw;
+}
+#storySidebar{
+ position: fixed;
+ float:left;
+ height: 100vh;
+ width: 25vw;
+}
+
+#storySidebar > .mdl-card__title {
+    width:100%;
+    text-align: right;
+    height: 33.333%;
+    background: url('md-backgrounds/JPG/grey.jpg') center / cover;
+}
+
+#input{
+ position: fixed;
+ top: 75vh;
+ width: 50vw;
+ height: 25vh;
+ left: 25vw;
+}
+
+#fabNext{
+    position:absolute;
+    right:16px;
+    top: 35px;
+}
