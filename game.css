@@ -3,7 +3,6 @@
  width: 50vw;
  left: 25vw;
  height: 75vh;
-    overflow: scroll;
 }
 #player{
  position: fixed;
