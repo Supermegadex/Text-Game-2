@@ -1,8 +1,0 @@
-// Place your settings in this file to overwrite default and user settings.
-{
-	"editor.fontFamily": "Ubuntu Mono",
-	"editor.fontSize": 20,
-	"editor.formatOnType": true,
-	"javascript.suggest.useCodeSnippetsOnMethodSuggest": true,
-	"javascript.validate.lint.missingSemicolon": "warning"
-}
