@@ -1,6 +1,6 @@
 ﻿#story{
  position: fixed;
- width: 50vw;
+ width: 49.8vw;
  left: 25vw;
  height: 75vh;
 }
@@ -27,7 +27,7 @@
 
 #input{
  position: fixed;
- top: 75vh;
+ bottom: 0;
  width: 50vw;
  height: 25vh;
  left: 25vw;
@@ -36,5 +36,10 @@
 #fabNext{
     position:absolute;
     right:16px;
-    top: 35px;
+    top: 32px;
+}
+
+#stats{
+    width:100%;
+    padding:0;
 }
