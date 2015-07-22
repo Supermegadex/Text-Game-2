@@ -1,4 +1,3 @@
-/// <reference path="typings/jquery/jquery.d.ts"/>
 window.setTimeout(function(){
     document.querySelector("#hp>.progressbar").className += " mdl-color--blue";
     document.querySelector("#hp>.bufferbar").style.opacity = ".3";
@@ -19,6 +18,7 @@ var con = $("#con");
 var int = $("#int");
 var wis = $("#wis");
 var next;
+var ip1 = document.querySelector("#input1");
 
 
 $.getJSON("stories.json", function(data){
@@ -47,7 +47,7 @@ var player = {
         forest: false,
         cave: false
     },
-    campSize:"small"
+    campSize: "small"
 };
 
 function update(why) {
@@ -69,57 +69,21 @@ Object.observe(player, function (changes) {
 function updateStory(story) {
     next = eval(story);
     if (next.multiple) {
-        var a = Math.floor(Math.random() * 11);
-        for (var i in next.stories) {
-            if (next.stories[i].chance[0] < a && next.stories[i].chance[1] >= a) {
-                next = next.stories[i];
-                break;
-            }
-        }
+        var a = Math.floor(Math.random() * next.number);
+        next = next.stories[a];
     }
     Function(next.action)();
     renderStory(next.story, next.title, next.input);
 }
 
 function renderStory(story, title, input) {
-    var ip = {
-        button: document.createElement("button"),
-        fab: false
-    };
     $("#storyText").html(story);
     $("#storyTitle").html(title);
-    document.querySelector("#input1").innerHTML = "";
-    for (var i in input) {
-        if (input[i].type == "button") {
-            ip.button.innerText = input[i].text;
-            ip.button.onclick = function () { updateStory(String(input[i].action)); };
-            ip.button.className = "mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect";
-            document.querySelector("#input1").appendChild(ip.button);
-            ip.button = document.createElement("button");
-        }
-        if (input[i].type == "fab") {
-            $("#fabNext").click(function () {
-                updateStory(String(input[i].action));
-                $("#fabNext").off("click");
-            });
-            ip.fab = true;
-        }
-        if (input[i].type == "req") {
-            if (eval(input[i].req)) {
-                if (input[i].t == "button") {
-                    ip.button.innerText = input[i].text;
-                    ip.button.onclick = function () { updateStory(String(input[i].action)); };
-                    ip.button.className = "mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect";
-                    document.querySelector("#input1").appendChild(ip.button);
-                    ip.button = document.createElement("button");
-                }
-            }
-        }
-    }
-    if (ip.fab) {
-        $("fabNext").slideDown(300);
+    $("#input1").html(input.text);
+    if (input.fab) {
+        $("#fabNext").slideDown();
     }
     else {
-        $("fabNext").slideUp(300);
+        $("#fabNext").slideUp();
     }
 }

@@ -7,46 +7,28 @@
 				{
 					"story": "You walk everywhere you can see for about an hour, finding nothing<br>",
 					"action": "return(false)",
-					"input": [
-						{
-							"type": "fab",
-							"action": "stories.main"
-						}
-					],
-					"chance": [
-						0,
-						5
-					],
+					"input": {
+						"fab": true,
+						"text": ""
+					},
 					"title": "Exploration"
 				},
 				{
 					"story": "You find a massive, beautiful, green forest filled with wildlife, some friendly...<br><br>And others not.",
 					"action": "forestFind()",
-					"input": [
-						{
-							"type": "fab",
-							"action": "stories.main"
-						}
-					],
-					"chance": [
-						5,
-						7
-					],
+					"input": {
+						"fab": true,
+						"text": ""
+					},
 					"title": "Forest"
 				},
 				{
 					"story": "You find a potion on the ground",
 					"action": "game.itemGet('health potion')",
-					"input": [
-						{
-							"type": "fab",
-							"action": "stories.main"
-						}
-					],
-					"chance": [
-						7,
-						10
-					],
+					"input": {
+						"fab": true,
+						"text": ""
+					},
 					"title": "Exploration"
 				}
 			]
@@ -58,47 +40,29 @@
 				{
 					"story": "You walk everywhere you can see for about an hour, finding nothing<br>",
 					"action": "return(false)",
-					"input": [
-						{
-							"type": "fab",
-							"action": "stories.main"
-						}
-					],
-					"chance": [
-						0,
-						5
-					],
-					"title": "Exploration"
+					"input": {
+						"fab": true,
+						"text": ""
+					},
+					"title": "Forest"
 				},
 				{
 					"story": "There's a snake in my boot!",
 					"action": "return(false)",
-					"input": [
-						{
-							"type": "fab",
-							"action": "stories.main"
-						}
-					],
-					"chance": [
-						5,
-						7
-					],
-					"title": "Exploration"
+					"input": {
+						"fab": true,
+						"text": ""
+					},
+					"title": "Forest"
 				},
 				{
 					"story": "You find a potion on the ground",
 					"action": "game.itemGet('health potion')",
-					"input": [
-						{
-							"type": "fab",
-							"action": "stories.main"
-						}
-					],
-					"chance": [
-						7,
-						10
-					],
-					"title": "Exploration"
+					"input": {
+						"fab": true,
+						"text": ""
+					},
+					"title": "Forest"
 				}
 			]
 		}
@@ -107,19 +71,11 @@
 		"multiple": false,
 		"story": "You return to camp",
 		"title": "Camp",
-		"action":"",
+		"action":"game.main()",
 		"input":[
 			{
-				"type": "button",
-				"text": "Explore!",
-				"action": "stories.explore.explore"
-			},
-			{
-				"type": "req",
-				"t": "button",
-				"text": "Forest",
-				"action": "stories.explore.forest",
-				"req": "game.forest"
+				"fab": false,
+				"text": ""
 			}
 		]
 	}
