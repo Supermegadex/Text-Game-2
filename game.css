@@ -39,6 +39,12 @@
     top: 32px;
 }
 
+#fabH{
+    position:absolute;
+    right:16px;
+    top: 32px;
+}
+
 #stats{
     width:100%;
     padding:0;

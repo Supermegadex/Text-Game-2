@@ -37,6 +37,41 @@ var game = {
 			ip.appendChild(this.cave());
 		}
 		ip1.appendChild(ip);
+	},
+	save: function () {
+		localStorage.delpinoGame = JSON.stringify(player);
+	},
+	load: function () {
+		var stored = JSON.parse(localStorage.delpinoGame);
+		for (var attrname in stored) { player[attrname] = stored[attrname]; };
+		updateStory("stories.main");
+	},
+	new: function () {
+		player = playerProto;
+		
 	}
 };
 
+var player = {
+	name: "Player",
+    str: 10,
+    dex: 10,
+    con: 10,
+    int: 10,
+    wis: 10,
+    cha: 10,
+    hp: 100,
+    maxHp: 100,
+    xp: 0,
+    nextLevel: 20,
+    mana: 100,
+    maxMana: 100,
+    level: 0,
+    places: {
+        forest: false,
+        cave: false
+    },
+    campSize: "small"
+};
+
+var playerProto;

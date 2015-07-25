@@ -4,6 +4,9 @@ window.setTimeout(function(){
     document.querySelector("#hp>.bufferbar").style.background = "#2196f3";
     document.querySelector("#xp>.progressbar").className += " mdl-color--teal";
     update("start");
+    $("#fabH").hide();
+    $("#fabNext").hide();
+    playerProto = player;
 }, 1000);
 
 var stories;
@@ -25,30 +28,14 @@ $.getJSON("stories.json", function(data){
     stories = data;
 });
 
-function fabToggle() {
-    $("#fabNext").slideToggle();
+function fabToggle(FAB) {
+    if (FAB.toLowerCase() == "home") {
+        $("#fabH").slideToggle();
+    }
+    if (FAB.toLowerCase() == "next") {
+        $("#fabNext").slideToggle();
+    }
 }
-
-var player = {
-    str: 10,
-    dex: 10,
-    con: 10,
-    int: 10,
-    wis: 10,
-    cha: 10,
-    hp: 100,
-    maxHp: 100,
-    xp: 0,
-    nextLevel: 20,
-    mana: 100,
-    maxMana: 100,
-    level: 0,
-    places: {
-        forest: false,
-        cave: false
-    },
-    campSize: "small"
-};
 
 function update(why) {
     str.text(player.str);
@@ -59,7 +46,8 @@ function update(why) {
     wis.text(player.wis);
     hp.MaterialProgress.setProgress((player.hp/player.maxHp) * 100);
     xp.MaterialProgress.setProgress((player.xp/player.nextLevel) * 100);
-    mana.MaterialProgress.setProgress((player.mana/player.maxMana) * 100);
+    mana.MaterialProgress.setProgress((player.mana / player.maxMana) * 100);
+    $("#name").text(player.name);
 };
 
 Object.observe(player, function (changes) {
@@ -81,9 +69,9 @@ function renderStory(story, title, input) {
     $("#storyTitle").html(title);
     $("#input1").html(input.text);
     if (input.fab) {
-        $("#fabNext").slideDown();
+        $("#fabH").slideDown();
     }
     else {
-        $("#fabNext").slideUp();
+        $("#fabH").slideUp();
     }
 }

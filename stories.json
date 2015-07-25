@@ -72,11 +72,18 @@
 		"story": "You return to camp",
 		"title": "Camp",
 		"action":"game.main()",
-		"input":[
-			{
-				"fab": false,
-				"text": ""
+		"input":[{
+			"fab": false,
+			"text": ""
+		}]
+	},
+	"create":{
+		"name":{
+			"multiple": false,
+			"story": "I don&apos;t have a backstory yet, so just go ahead and <b>give your character a name!</b>",
+			"input":{
+				
 			}
-		]
+		}
 	}
 }

@@ -41,10 +41,12 @@
             <h1 class="mdl-card__title-text" style="height:30px"></h1>
         </div>
         <div class="mdl-card__supporting-text">
-            <button id="fabNext" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" onclick="updateStory('stories.main')">
+            <button id="fabH" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" onclick="updateStory('stories.main')">
                 <i class="material-icons">arrow_forward</i>
             </button>
-
+            <button id="fabNext" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" onclick="next()">
+                <i class="material-icons">arrow_forward</i>
+            </button>
         </div>
         <div class="mdl-card__actions" id="input1">
         </div>
@@ -53,7 +55,7 @@
     <!--Player-->
     <div id="player" class="mdl-card mdl-shadow--2dp">
         <div class="mdl-card__title">
-            <h2 class="mdl-card__title-text">Player</h2>
+            <h2 class="mdl-card__title-text" id="name">Player</h2>
         </div>
         <div class="mdl-card__supporting-text">
             <h5>HP</h5>
@@ -106,9 +108,9 @@
             </button>
             <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
                 for="rSidebarMenu">
-                <li class="mdl-menu__item">Save</li>
-                <li class="mdl-menu__item">Load</li>
-                <li class="mdl-menu__item">New Character</li>
+                <li class="mdl-menu__item" onclick="game.save()">Save</li>
+                <li class="mdl-menu__item" onclick="game.load()">Load</li>
+                <li class="mdl-menu__item" onclick="game.create()">New Character</li>
             </ul>
         </div>
     </div>
