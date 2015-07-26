@@ -36,6 +36,7 @@ var game = {
 			ip.appendChild(document.createTextNode("   "));
 			ip.appendChild(this.cave());
 		}
+		ip1.innerHTML = "";
 		ip1.appendChild(ip);
 	},
 	save: function () {
@@ -46,9 +47,55 @@ var game = {
 		for (var attrname in stored) { player[attrname] = stored[attrname]; };
 		updateStory("stories.main");
 	},
-	new: function () {
+	create: function () {
 		player = playerProto;
-		
+		updateStory("stories.start");
+	},
+	sSave: function () {
+		$.ajax({
+			method: "POST",
+			url: "edit.php",
+			data: { data: JSON.stringify(player) }
+		}).success(function (msg) {
+			alert("Data Saved for character " + msg);
+		});
+	},
+	sLoad: function () {
+		$.ajax({
+			method: "POST",
+			url: "load.php",
+		}).success(function (msg) {
+			msg = JSON.parse(msg);
+			player = msg;
+			updateStory("stories.main");
+		});
+	},
+	login: function (username, password) {
+		$.ajax({
+			method: "POST",
+			url: "login.php",
+			data: {data:JSON.stringify(player), username:username, password:password}
+		}).success(function (msg) {
+			alert(msg);
+			game.sLoad();
+		});
+	},
+	register: function (username, password, email) {
+		$.ajax({
+			method: "POST",
+			url: "register.php",
+			data: {data:JSON.stringify(player), username:username, password:password, email:email}
+		}).success(function (msg) {
+			alert(msg);
+		});
+	},
+	logout: function () {
+		$.ajax({
+			method: "POST",
+			url: "logout.php",
+		}).success(function (msg) {
+			alert(msg);
+		});
 	}
 };
 

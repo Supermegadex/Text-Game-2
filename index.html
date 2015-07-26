@@ -28,7 +28,7 @@
         <div class="mdl-card__supporting-text" id="storyText">
             This is a game. Make a character and try it out!
         </div>
-        <div class="mdl-card__actions mdl-card--border">
+        <div class="mdl-card__actions mdl-card--border" id="storyIp">
             <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" style="width:100%;padding-left:0;padding-right:0;">
                 Get Started
             </a>
@@ -108,9 +108,12 @@
             </button>
             <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
                 for="rSidebarMenu">
-                <li class="mdl-menu__item" onclick="game.save()">Save</li>
-                <li class="mdl-menu__item" onclick="game.load()">Load</li>
                 <li class="mdl-menu__item" onclick="game.create()">New Character</li>
+                <li class="mdl-menu__item" onclick="updateStory('stories.data.create')'">Create Account</li>
+                <li class="mdl-menu__item" onclick="updateStory('stories.data.login')">Login</li>
+                <li class="mdl-menu__item" onclick="game.sSave()">Save</li>
+                <li class="mdl-menu__item" onclick="game.sLoad()">Load</li>
+                <li class="mdl-menu__item" onclick="game.logout()">Logout</li>
             </ul>
         </div>
     </div>

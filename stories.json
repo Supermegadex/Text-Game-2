@@ -85,5 +85,44 @@
 				
 			}
 		}
+	},
+	"data":{
+		"save":{
+			"multiple": false,
+			"story": "Save your game to the server for access anywhere.<br><b>MAKE SURE YOU:</b><br><small>Log in<br>or<br>Sign Up</small>",
+			"input":{
+				"fab": true,
+				"text": "<button onclick='game.sSave()'>Submit</button>"
+			}
+		},
+		"load":{
+			"multiple": false,
+			"story": "Save your game to the server for access anywhere.<br><b>MAKE SURE YOU:</b><br><small>Log in<br>or<br>Sign Up</small>",
+			"input":{
+				"fab": true,
+				"text": "<button onclick='game.sLoad()'>Load</button>",
+				"story": ""
+			}
+		},
+		"login":{
+			"multiple": false,
+			"story": "Login to load your character",
+			"title": "login",
+			"input":{
+				"fab": true,
+				"text": "<button onclick='game.login(document.getElementById(\"username\").value, document.getElementById(\"password\").value)'>Load</button>",
+				"story": "<input type='text' id='username' /><input type='password' id='password' />"
+			}
+		},
+		"create":{
+			"multiple": false,
+			"story": "Create a new account",
+			"title": "Register",
+			"input":{
+				"fab": true,
+				"text": "<button onclick='game.register(document.getElementById(\"username\").value, document.getElementById(\"password\").value, document.getElementById(\"email\").value)'>Load</button>",
+				"story": "<input type='text' placeholder='username' id='username' /><input type='text' placeholder='email' id='email' /><input type='password' placeholder='password' id='password' />"
+			}
+		}
 	}
 }

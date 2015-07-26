@@ -62,6 +62,7 @@ function updateStory(story) {
     }
     Function(next.action)();
     renderStory(next.story, next.title, next.input);
+    update();
 }
 
 function renderStory(story, title, input) {
@@ -73,5 +74,18 @@ function renderStory(story, title, input) {
     }
     else {
         $("#fabH").slideUp();
+    }
+    if ("next" in input) {
+        game.next = input.next.loc;
+        $("#fabNext").slideDown();
+    }
+    else {
+        $("#fabNext").slideUp();
+    }
+    if ("story" in input) {
+        $("#storyIp").html(input.story);
+    }
+    else {
+        $("#storyIp").html("");
     }
 }
