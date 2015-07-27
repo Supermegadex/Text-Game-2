@@ -3,6 +3,7 @@
  width: 49.8vw;
  left: 25vw;
  height: 75vh;
+ overflow-y: scroll;
 }
 #player{
  position: fixed;
@@ -48,4 +49,12 @@
 #stats{
     width:100%;
     padding:0;
+}
+
+#storyText{
+    font-size: 14pt;
+}
+
+#storyTitle{
+    font-size: 36pt;
 }

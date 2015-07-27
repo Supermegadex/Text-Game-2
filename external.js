@@ -95,7 +95,13 @@ var game = {
 			url: "logout.php",
 		}).success(function (msg) {
 			alert(msg);
+			player = playerProto;
+			updateStory("stories.create.name");
 		});
+	},
+	currentPlace: "",
+	stats: function () {
+		
 	}
 };
 

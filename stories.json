@@ -82,36 +82,32 @@
 			"multiple": false,
 			"story": "I don&apos;t have a backstory yet, so just go ahead and <b>give your character a name!</b>",
 			"input":{
-				
+				"text":"",
+				"story": "<input class='mdl-textfield__input' onkeyup='player.name=this.value' placeholder='Name' />",
+				"next": "stories.create.stats"
+			}
+		},
+		"stats":{
+			"story": "Here you will generate your stats",
+			"multiple": false,
+			"action": "game.stats()",
+			"input":{
+				"next": "stories.main",
+				"text": "",
+				"story": "<stat-table></stat-table>"
 			}
 		}
 	},
 	"data":{
-		"save":{
-			"multiple": false,
-			"story": "Save your game to the server for access anywhere.<br><b>MAKE SURE YOU:</b><br><small>Log in<br>or<br>Sign Up</small>",
-			"input":{
-				"fab": true,
-				"text": "<button onclick='game.sSave()'>Submit</button>"
-			}
-		},
-		"load":{
-			"multiple": false,
-			"story": "Save your game to the server for access anywhere.<br><b>MAKE SURE YOU:</b><br><small>Log in<br>or<br>Sign Up</small>",
-			"input":{
-				"fab": true,
-				"text": "<button onclick='game.sLoad()'>Load</button>",
-				"story": ""
-			}
-		},
 		"login":{
 			"multiple": false,
 			"story": "Login to load your character",
 			"title": "login",
+			"action": "",
 			"input":{
-				"fab": true,
-				"text": "<button onclick='game.login(document.getElementById(\"username\").value, document.getElementById(\"password\").value)'>Load</button>",
-				"story": "<input type='text' id='username' /><input type='password' id='password' />"
+				"fab": false,
+				"text": "",
+				"story": "<br /><form style='width: 40%' action='javascript:game.login(document.getElementById(\"username\").value, document.getElementById(\"password\").value)' id='loginForm'><input type='text' class='mdl-textfield__input' placeholder='Username' id='username' /><br /><br /><input type='password' placeholder='Password' class='mdl-textfield__input' id='password' /><br /><input type='submit' class='mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent' value='Log in' /></form>"
 			}
 		},
 		"create":{
@@ -120,8 +116,8 @@
 			"title": "Register",
 			"input":{
 				"fab": true,
-				"text": "<button onclick='game.register(document.getElementById(\"username\").value, document.getElementById(\"password\").value, document.getElementById(\"email\").value)'>Load</button>",
-				"story": "<input type='text' placeholder='username' id='username' /><input type='text' placeholder='email' id='email' /><input type='password' placeholder='password' id='password' />"
+				"text": "<button onclick='game.register(document.getElementById(\"username\").value, document.getElementById(\"password\").value, document.getElementById(\"email\").value)'>Register</button>",
+				"story": "<form action='javascript:game.register(document.getElementById(\"username\").value, document.getElementById(\"password\").value, document.getElementById(\"email\").value)'><input type='text' placeholder='username' class='mdl-textfield__input' id='username' /><br /><input type='text' class='mdl-textfield__input' placeholder='email' id='email' /><br /><input type='password' class='mdl-textfield__input' placeholder='password' id='password' /></form>"
 			}
 		}
 	}

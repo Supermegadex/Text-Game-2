@@ -7,7 +7,7 @@
     if(empty($_SESSION['user'])) 
     { 
         // If they are not, we redirect them to the login page. 
-        echo("Please <button onclick='game.login()>Log in</button>'");
+        echo("Please log in first");
          
         // Remember that this die statement is absolutely critical.  Without it, 
         // people can view your members-only content without logging in. 
@@ -17,47 +17,7 @@
     // This if statement checks to determine whether the edit form has been submitted 
     // If it has, then the account updating code is run, otherwise the form is displayed 
     if(!empty($_POST)) 
-    {
-        // If the user is changing their E-Mail address, we need to make sure that 
-        // the new value does not conflict with a value that is already in the system. 
-        // If the user is not changing their E-Mail address this check is not needed. 
-        if($_POST['email'] != $_SESSION['user']['email']) 
-        { 
-            // Define our SQL query 
-            $query = " 
-                SELECT 
-                    1 
-                FROM users 
-                WHERE 
-                    email = :email 
-            "; 
-             
-            // Define our query parameter values 
-            $query_params = array( 
-                ':email' => $_POST['email'] 
-            ); 
-             
-            try 
-            { 
-                // Execute the query 
-                $stmt = $db->prepare($query); 
-                $result = $stmt->execute($query_params); 
-            } 
-            catch(PDOException $ex) 
-            { 
-                // Note: On a production website, you should not output $ex->getMessage(). 
-                // It may provide an attacker with helpful information about your code.  
-                die("Failed to run query: " . $ex->getMessage()); 
-            } 
-             
-            // Retrieve results (if any) 
-            $row = $stmt->fetch(); 
-            if($row) 
-            { 
-                die("This E-Mail address is already in use"); 
-            } 
-        } 
-         
+    {         
         // If the user entered a new password, we need to hash it and generate a fresh salt 
         // for good measure. 
         if(!empty($_POST['password'])) 
@@ -78,7 +38,6 @@
          
         // Initial query parameter values 
         $query_params = array( 
-            ':email' => $_POST['email'], 
             ':user_id' => $_SESSION['user']['id'],
             ':data' => $_POST['data']
         ); 
@@ -97,19 +56,8 @@
         $query = " 
             UPDATE users 
             SET 
-                email = :email 
-                , data = :data
+                data = :data
         "; 
-         
-        // If the user is changing their password, then we extend the SQL query 
-        // to include the password and salt columns and parameter tokens too. 
-        if($password !== null) 
-        { 
-            $query .= " 
-                , password = :password 
-                , salt = :salt 
-            "; 
-        } 
          
         // Finally we finish the update query by specifying that we only wish 
         // to update the one record with for the current user. 
@@ -130,16 +78,4 @@
             // It may provide an attacker with helpful information about your code.  
             die("Failed to run query: " . $ex->getMessage()); 
         } 
-         
-        // Now that the user's E-Mail address has changed, the data stored in the $_SESSION 
-        // array is stale; we need to update it so that it is accurate. 
-        $_SESSION['user']['email'] = $_POST['email']; 
-         
-        // This redirects the user back to the members-only page after they register 
-        header("Location: private.php"); 
-         
-        // Calling die or exit after performing a redirect using the header function 
-        // is critical.  The rest of your PHP script will continue to execute and 
-        // will be sent to the user if you do not die or exit. 
-        die("Redirecting to private.php"); 
     } 

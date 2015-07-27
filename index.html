@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet" type="text/css">
     <script src="external.js"></script>
+    <link rel="import" href="polymer/polymer.html" />
 </head>
 <body>
     <!--Left Sidebar-->
@@ -29,7 +30,7 @@
             This is a game. Make a character and try it out!
         </div>
         <div class="mdl-card__actions mdl-card--border" id="storyIp">
-            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" style="width:100%;padding-left:0;padding-right:0;">
+            <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" style="width:100%;padding-left:0;padding-right:0;" onclick="updateStory('stories.create.name')">
                 Get Started
             </a>
         </div>
@@ -44,7 +45,7 @@
             <button id="fabH" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" onclick="updateStory('stories.main')">
                 <i class="material-icons">arrow_forward</i>
             </button>
-            <button id="fabNext" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" onclick="next()">
+            <button id="fabNext" class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored" onclick="nextStory()">
                 <i class="material-icons">arrow_forward</i>
             </button>
         </div>
@@ -77,27 +78,27 @@
   <tbody>
     <tr>
       <td class="mdl-data-table__cell--non-numeric">Strength</td>
-      <td id="str">40</td>
+      <td class="str">40</td>
     </tr>
     <tr>
       <td class="mdl-data-table__cell--non-numeric">Dexterity</td>
-      <td id="dex">73</td>
+      <td class="dex">73</td>
     </tr>
     <tr>
       <td class="mdl-data-table__cell--non-numeric">Constitution</td>
-      <td id="con">58</td>
+      <td class="con">58</td>
     </tr>
     <tr>
       <td class="mdl-data-table__cell--non-numeric">Intelligence</td>
-      <td id="int">74</td>
+      <td class="int">74</td>
     </tr>
     <tr>
       <td class="mdl-data-table__cell--non-numeric">Wisdom</td>
-      <td id="wis">74</td>
+      <td class="wis">74</td>
     </tr>
     <tr>
       <td class="mdl-data-table__cell--non-numeric">Charisma</td>
-      <td id="cha">74</td>
+      <td class="cha">74</td>
     </tr>
   </tbody>
 </table>
@@ -109,17 +110,76 @@
             <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
                 for="rSidebarMenu">
                 <li class="mdl-menu__item" onclick="game.create()">New Character</li>
-                <li class="mdl-menu__item" onclick="updateStory('stories.data.create')'">Create Account</li>
+                <li class="mdl-menu__item" onclick="updateStory('stories.data.create')">Create Account</li>
                 <li class="mdl-menu__item" onclick="updateStory('stories.data.login')">Login</li>
-                <li class="mdl-menu__item" onclick="game.sSave()">Save</li>
+                <li class="mdl-menu__item" id="saveSelect" onclick="game.sSave()">Save</li>
                 <li class="mdl-menu__item" onclick="game.sLoad()">Load</li>
                 <li class="mdl-menu__item" onclick="game.logout()">Logout</li>
             </ul>
         </div>
     </div>
+    
+            <table class="mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp" id="stats-choose" style="visibility:hidden">
+              <thead>
+                <tr>
+                  <th class="mdl-data-table__cell--non-numeric"><b>Stats</b></th>
+                  <th class="mdl-data-table__cell--non-numeric"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="mdl-data-table__cell--non-numeric" layout horizontal center>
+                    <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" style="padding:0;">
+                      <i class="material-icons">add</i>
+                    </button>
+                    Strength</td>
+                  <td id="str1">10</td>
+                </tr>
+                <tr>
+                  <td class="mdl-data-table__cell--non-numeric" layout horizontal center>
+                    <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" style="padding:0;">
+                      <i class="material-icons">add</i>
+                    </button>
+                    Dexterity</td>
+                  <td class="dex">10</td>
+                </tr>
+                <tr>
+                  <td class="mdl-data-table__cell--non-numeric" layout horizontal center>
+                    <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" style="padding:0;">
+                      <i class="material-icons">add</i>
+                    </button>
+                    Constitution</td>
+                  <td class="con">10</td>
+                </tr>
+                <tr>
+                  <td class="mdl-data-table__cell--non-numeric" layout horizontal center>
+                    <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" style="padding:0;">
+                      <i class="material-icons">add</i>
+                    </button>
+                    Intelligence</td>
+                  <td class="int">10</td>
+                </tr>
+                <tr>
+                  <td class="mdl-data-table__cell--non-numeric" layout horizontal center>
+                    <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" style="padding:0;">
+                      <i class="material-icons">add</i>
+                    </button>
+                    Wisdom</td>
+                  <td class="wis">10</td>
+                </tr>
+                <tr>
+                  <td class="mdl-data-table__cell--non-numeric" layout horizontal center>
+                    <button class="mdl-button mdl-js-button mdl-button--icon mdl-button--colored" style="padding:0;">
+                      <i class="material-icons">add</i>
+                    </button>
+                    Charisma</td>
+                  <td class="cha">10</td>
+                </tr>
+              </tbody>
+            </table>
 
     <script src="jquery.js"></script>
-    <script src="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.min.js"></script>
+    <script id="mdl" src="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.min.js"></script>
     <script src="game.js"></script>
 </body>
 </html>
