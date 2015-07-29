@@ -3,7 +3,6 @@
  width: 49.8vw;
  left: 25vw;
  height: 75vh;
- overflow-y: scroll;
 }
 #player{
  position: fixed;
@@ -28,7 +27,7 @@
 
 #input{
  position: fixed;
- bottom: 0;
+ top:75vh;
  width: 50vw;
  height: 25vh;
  left: 25vw;
@@ -57,4 +56,8 @@
 
 #storyTitle{
     font-size: 36pt;
+}
+
+#notTitle{
+    overflow-y: scroll;
 }

@@ -3,7 +3,10 @@ window.setTimeout(function(){
     document.querySelector("#hp>.bufferbar").style.opacity = ".3";
     document.querySelector("#hp>.bufferbar").style.background = "#2196f3";
     document.querySelector("#xp>.progressbar").className += " mdl-color--teal";
-    update("start");
+    document.querySelector("#enemyHp>.progressbar").className += " mdl-color--red";
+    document.querySelector("#enemyHp>.bufferbar").style.opacity = ".3";
+    document.querySelector("#enemyHp>.bufferbar").style.background = "#f44336";
+    update();
     $("#fabH").hide();
     $("#fabNext").hide();
     playerProto = player;
@@ -44,41 +47,55 @@ function fabToggle(FAB) {
 }
 
 function update(why) {
-    str.text(player.str);
-    dex.text(player.dex);
-    con.text(player.con);
-    int.text(player.int);
-    cha.text(player.cha);
-    wis.text(player.wis);
-    hp.MaterialProgress.setProgress((player.hp/player.maxHp) * 100);
-    xp.MaterialProgress.setProgress((player.xp/player.nextLevel) * 100);
-    mana.MaterialProgress.setProgress((player.mana / player.maxMana) * 100);
-    $("#name").text(player.name);
-    $.ajax({
-        url: "username.php",
-        method: "POST",
-    }).success(function (re) {
-        $("#name").append(re);
-        });
-    if (game.currentPlace.split('.')[1] == "create") {
-        document.querySelector("#saveSelect").setAttribute("disabled", "true");
-        document.querySelector("#saveSelect").setAttribute("onclick", "return(false)");
+    if (why == "Oo") {
+        game.Ooud = true;
+    }
+    if (game.Ooud && why == "Oo") {
+        ud();
     }
     else {
-        document.querySelector("#saveSelect").removeAttribute("disabled");
-        document.querySelector("#saveSelect").setAttribute("onclick", "data.sSave()");
+        ud();
+    }
+    function ud() {
+        str.text(player.str);
+        dex.text(player.dex);
+        con.text(player.con);
+        int.text(player.int);
+        cha.text(player.cha);
+        wis.text(player.wis);
+        hp.MaterialProgress.setProgress((player.hp / player.maxHp) * 100);
+        xp.MaterialProgress.setProgress((player.xp / player.nextLevel) * 100);
+        mana.MaterialProgress.setProgress((player.mana / player.maxMana) * 100);
+        $("#name").text(player.name);
+        $.ajax({
+            url: "username.php",
+            method: "POST",
+        }).success(function (re) {
+            $("#name").append(re);
+        });
+        if (game.currentPlace.split('.')[1] != "main") {
+            document.querySelector("#saveSelect").setAttribute("disabled", "true");
+            document.querySelector("#saveSelect").setAttribute("onclick", "return(false)");
+        }
+        else {
+            document.querySelector("#saveSelect").removeAttribute("disabled");
+            document.querySelector("#saveSelect").setAttribute("onclick", "game.sSave()");
+        }
+        $(".points").text(player.points);
     }
 };
 
 Object.observe(player, function (changes) {
-    update("update");
+    update("Oo");
 });
 
 function updateStory(story) {
     next = eval(story);
-    if (next.multiple) {
-        var a = Math.floor(Math.random() * next.number);
-        next = next.stories[a];
+    if ("multiple" in next) {
+        if (next.multiple) {
+            var a = Math.floor(Math.random() * next.number);
+            next = next.stories[a];
+        }
     }
     Function(next.action)();
     renderStory(next.story, next.title, next.input);
@@ -87,9 +104,15 @@ function updateStory(story) {
 }
 
 function renderStory(story, title, input) {
-    $("#storyText").html(story);
-    $("#storyTitle").html(title);
-    $("#input1").html(input.text);
+    if ("story" in this) {
+        $("#storyText").html(story);
+    }
+    if ("title" in this) {
+        $("#storyTitle").html(title);
+    }
+    if ("input" in this) {
+        $("#input1").html(input.text);
+    }
     if (input.fab) {
         $("#fabH").slideDown();
     }

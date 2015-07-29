@@ -90,11 +90,11 @@
 		"stats":{
 			"story": "Here you will generate your stats",
 			"multiple": false,
-			"action": "game.stats()",
+			"action": "game.tableSet=false; game.stats({update:'gen'})",
 			"input":{
 				"next": "stories.main",
 				"text": "",
-				"story": "<stat-table></stat-table>"
+				"story": ""
 			}
 		}
 	},

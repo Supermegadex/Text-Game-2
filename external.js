@@ -99,10 +99,51 @@ var game = {
 			updateStory("stories.create.name");
 		});
 	},
+	tableSet: false,
 	currentPlace: "",
-	stats: function () {
-		
-	}
+	stats: function (dat) {
+		if (!game.tableSet) {
+			game.tableSet = true;
+			window.setTimeout(function () {
+				document.querySelector("#storyIp").appendChild(document.querySelector("#stats-choose > div"));
+			}, 100);
+		}
+		if (dat.update == "stat+") {
+			if (player.points > 0) {
+				player[dat.value]++;
+				player.points--;
+				player.pointCounter[dat.value]++;
+			}
+		}
+		if (dat.update == "stat-") {
+			if (player.pointCounter[dat.value] > 0) {
+				player[dat.value]--;
+				player.pointCounter[dat.value]--;
+				player.points++;
+			}
+		}
+		if (dat.update == "gen") {
+			player.points = 10;
+			function randomize(array, total){
+			    var maxLoops = 100, randomized;
+			    do{
+			        randomized = array.map(function(value){
+			           return Math.floor(Math.random()*(value+1)); 
+			        });
+			        maxLoops--;
+			    }while(randomized !== 0 && maxLoops > 0 && randomized.reduce(function(a, b){ return a+b; }) !== total);
+			
+			    return randomized;
+			}
+			var genItems = randomize([15, 15, 15, 15, 15, 15], 60);
+			var statistics = ["str", "dex", "con", "int", "wis", "cha"];
+			for (var i = 0; i < 6; i++) {
+				player[statistics[i]] = genItems[i];
+			}
+		}
+		update();
+	},
+	Ooud: false,
 };
 
 var player = {
@@ -124,7 +165,16 @@ var player = {
         forest: false,
         cave: false
     },
-    campSize: "small"
+    campSize: "small",
+	points: 10,
+	pointCounter: {
+		str: 0,
+		int: 0,
+		cha: 0,
+		wis: 0,
+		con: 0,
+		dex: 0
+	},
 };
 
 var playerProto;
