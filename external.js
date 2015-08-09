@@ -1,3 +1,4 @@
+/// <reference path="typings/jquery/jquery.d.ts"/>
 function forestFind() {
 	player.places.forest = true;
 }
@@ -144,7 +145,84 @@ var game = {
 		update();
 	},
 	Ooud: false,
+	fightIp: {
+		
+	},
+	fight: function (event) {
+		if ("enemy" in event) {
+			this.fight.enemy = event.enemy;
+			if (typeof this.fight.enemy.hp == "function") {
+				game.fight.enemy.hp = game.fight.enemy.hp();
+			}
+			if ("img" in game.fight.enemy) {
+				document.querySelector("#backgroundImage").style.backgroundImage = "url(" + game.fight.enemy.img + ")";
+			}
+		}
+		if (event.event == "start") {
+			this.fight.inProgress = true;
+			$("#storyTitle").text("Fight!");
+			$("#enemyHp").slideDown();
+			document.querySelector("#enemyHp").MaterialProgress.setProgress((game.fight.enemy.hp / game.fight.enemy.maxHp) * 100);
+			$("#storyTitleHeader").removeClass(this.titleColor);
+			$("#storyTitleHeader").addClass("mdl-color--red");
+			this.titleColor = "mdl-color--red";
+			document.querySelector("#storySidebar > .mdl-card__title").style.background = game.fight.enemy.img;
+			renderStory("A " + game.fight.enemy.name + " attacks!", "Fight!", { story: "", text: "<button class='" + game.buttonClass + "mdl-color--red' onclick='game.fight({event:\"attack\"})'>Attack!</button>" });
+			
+		}
+		if (event.event == "attack") {
+			var attackTxt;
+			if (d(1, 20) + player.str > game.fight.enemy.AC) {
+				game.fight.enemy.hp -= 3 /* this three is the player's weapon. Only fist is available now. */ + player.str + d(1, 4);
+				attackTxt = "You hit and dealt " + String(3 + player.str) + " damage";
+			}
+			$("#storyText").html(attackTxt);
+			document.querySelector("#enemyHp").MaterialProgress.setProgress((game.fight.enemy.hp / game.fight.enemy.maxHp) * 100);
+			if (game.fight.enemy.hp <= 0) {
+				this.fight({ event: "win" });
+			}
+		}
+		if (event.event == "win") {
+			renderStory("You beat the " + game.fight.enemy.name + "!", "Success!", { story: "", text: "<button class=' " + game.buttonClass + " ' onclick='game.fight({event:\"finish\"})'>Continue</button>" });
+			document.querySelector("#enemyHp").MaterialProgress.setProgress(0);
+			$("#storyTitleHeader").removeClass(this.titleColor);
+			$("#storyTitleHeader").addClass("mdl-color--green");
+		}
+		if (event.event == "finish") {
+			$("#enemyHp").slideUp();
+			$("#storyTitleHeader").removeClass("mdl-color--green");
+			$("#storyTitleHeader").addClass("mdl-color--teal");
+			this.fight.inProgress = false;
+			updateStory(game.fight.enemy.next);
+		}
+	},
+	titleColor: "mdl-color--teal",
+	buttonClass: "mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--colored mdl-button--raised",
 };
+
+var enemies = {
+	wolf: {
+		hp: function () {
+			return(Math.floor(Math.random() * (102 - 98 + 1)) + 98);
+		},
+		maxHp: 102,
+		name: "Wolf",
+		str: 10,
+		dex: 12,
+		con: 9,
+		int: 2,
+		wis: 4,
+		cha: 7,
+		img: "wolf.jpg",
+		AC: 1,
+		tameable: true,
+		next: "stories.main",
+		imgFinish: "md-backgrounds/JPG/grey.jpg",
+		start: function () {
+			return this;
+		}
+	}
+}
 
 var player = {
 	name: "Player",
@@ -161,6 +239,7 @@ var player = {
     mana: 100,
     maxMana: 100,
     level: 0,
+	AC: 0,
     places: {
         forest: false,
         cave: false
